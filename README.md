@@ -45,25 +45,27 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the jumpbox machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+Only the jump box provisioner machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
 98.197.237.189
 
-Machines within the network can only be accessed by Jumping-Japan (Jump box) .
+Machines within the network can only be accessed by the jump box. *The Elk machine can have access from personal ip through port 5601. 
 - Jumping-Japan
 - Public: 20.89.111.21
 - Private: 10.1.0.8
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name             | Publicly Accessible | Allowed IP Addresses |
+|------------------|---------------------|----------------------|
+| Jump Box         | Yes                 | 98.197.237.189       |
+| Web1             | No                  | 10.1.0.5             |
+| Web2             | No                  | 10.1.0.6             | 
+| Load Balancer    | Yes                 | 20.222.202.167       |  
+| Elk              | Yes                 | 20.70.163.17         |
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because 
 - _TODO: What is the main advantage of automating configuration with Ansible?_
 
 The playbook implements the following tasks:
