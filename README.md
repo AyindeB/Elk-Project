@@ -90,7 +90,14 @@ This ELK server is configured to monitor the following machines:
 
 We have installed the following Beats on these machines:
 - [Filebeat](https://github.com/AyindeB/Elk-Project/blob/main/Images/filebeat%20playbook.png)
+
+![filebeat playbook](https://user-images.githubusercontent.com/105833047/170404805-2b099758-8425-4249-8b58-8a0e9455da14.png)
+
 - [Metricbeat](https://github.com/AyindeB/Elk-Project/blob/main/Images/metricbeat%20playbook.png)
+
+![metricbeat playbook](https://user-images.githubusercontent.com/105833047/170404840-7c1e892c-7b97-478f-8299-e9682d44ff25.png)
+
+
 
 These Beats allow us to collect the following information from each machine:
 - Filebeat collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
@@ -116,8 +123,8 @@ SSH into the control node and follow the steps below:
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
- # curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat >> /etc/ansible/filebeat-config.yml
- # mkdir /etc/ansible/files
+  curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat >> /etc/ansible/filebeat-config.yml
+ mkdir /etc/ansible/files
  cp /etc/ansible/filebeat-config.yml /etc/ansible/files/filebeat-config.yml
  dpkg -i filebeat-7.4.0-amd64.deb
  cp /etc/ansible/filebeat-config.yml roles
