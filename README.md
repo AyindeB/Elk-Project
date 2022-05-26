@@ -69,17 +69,19 @@ A summary of the access policies in place can be found in the table below.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because 
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because no special coding skills are needed to use ansible's playbooks
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+1. Install docker.io
+2. Install pip3
+3. Install docker python module
+4. Increase virtual memory
+5. Download and launch a docker
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
 [Docker ps](https://github.com/AyindeB/Elk-Project/blob/main/Images/docker%20ps-a.png)
+![docker ps-a](https://user-images.githubusercontent.com/105833047/170404421-3269e9e0-a9a9-45e5-8d33-ba6d132d6d74.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
@@ -87,23 +89,40 @@ This ELK server is configured to monitor the following machines:
 - Web2: 10.1.0.6
 
 We have installed the following Beats on these machines:
-- [Filebeat]
-- [Metricbeat]
+- [Filebeat](https://github.com/AyindeB/Elk-Project/blob/main/Images/filebeat%20playbook.png)
+- [Metricbeat](https://github.com/AyindeB/Elk-Project/blob/main/Images/metricbeat%20playbook.png)
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Filebeat collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
+- Metricbeat periodically collect metrics from the operating system and from services running on the server. 
 
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the configuration file from Ansible to your Web VMs.
+- Update the /etc/ansible/host file to include IP address of Elk server VM and webservers
+- Run the playbook, and navigate to http://20.70.163.17:5601/app/kibana to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
+
+- _Which file is the playbook? Where do you copy it?
+- Filebeat configuration
+- cp /etc/ansible/files/filebeat-config.yml /etc/filebeat/filebeat.yml
+
+- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_ 
+- update filebeat-config.yml 
+- To ensure you've got the right machine installed you must update the host files with ip addresses from the web and elk servers. You also have to determine which group to run on ansible.
 - _Which URL do you navigate to in order to check that the ELK server is running?
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+
+ curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat >> /etc/ansible/filebeat-config.yml
+ mkdir /etc/ansible/files
+ cp /etc/ansible/filebeat-config.yml /etc/ansible/files/filebeat-config.yml
+ # Install .deb file using dpkg
+ dpkg -i filebeat-7.4.0-amd64.deb
+ cp /etc/ansible/filebeat-config.yml roles
+ filebeat modules enable system
+ filebeat setup 
+ service filebeat start 
+ ansible-playbook filebeat-playbook.yml
