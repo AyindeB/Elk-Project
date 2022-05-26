@@ -78,6 +78,62 @@ The playbook implements the following tasks:
 4. Increase virtual memory
 5. Download and launch a docker
 
+
+---
+- name: Config ELK VM with Docker
+  hosts: elk
+  remote_user: RedElkAdmin
+  become: True
+  tasks:
+
+    - name: Install Packages
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        name: docker.io
+        state: present
+
+    - name: Install python-pip3
+      apt:
+        force_apt_get: yes
+        name: python3-pip
+        state: present
+
+    - name: Install Docker Python Mod
+      pip:
+        name: docker
+        state: present
+
+    - name: Increse the Virtual Memory on the Elk VM
+      command: sysctl -w vm.max_map_count=262144
+
+    - name: Increse the shell memeory on restart
+      shell: echo "vm.max_map_count=262144" >> /etc/sysctl.conf
+
+    - name: use more memory
+      sysctl:
+        name: vm.max_map_count
+        value: "262144"
+        state: present
+        reload: yes
+
+    - name: Download and launch a Docker Elk Container
+      docker_container:
+        name: sebp
+        image: sebp/elk:761
+        state: started
+        restart_policy: always
+        published_ports:
+          - 5601:5601
+          - 9200:9200
+          - 5044:5044
+
+    - name: Enable docker
+      systemd:
+        name: docker
+        enabled: yes
+
+
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
 [Docker ps](https://github.com/AyindeB/Elk-Project/blob/main/Images/docker%20ps-a.png)
