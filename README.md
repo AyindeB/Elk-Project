@@ -5,7 +5,11 @@ The files in this repository were used to configure the network depicted below.
  (https://github.com/AyindeB/Elk-Project/blob/main/Diagrams/clouddiagram.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook file may be used to install only certain pieces of it, such as Filebeat.
--[Filebeat Playbook](https://github.com/AyindeB/Elk-Project/blob/main/ansible/Filebeat-playbook.yml)
+
+- [Filebeat Playbook](https://github.com/AyindeB/Elk-Project/blob/main/ansible/Filebeat-playbook.yml)
+- [Metricbeat Playbook](https://github.com/AyindeB/Elk-Project/blob/main/ansible/Metricbeat-playbook.yml)
+- [Elk Install](https://github.com/AyindeB/Elk-Project/blob/main/ansible/Install-Elk.yml)
+- [DVWA]
   
 
 This document contains the following details:
